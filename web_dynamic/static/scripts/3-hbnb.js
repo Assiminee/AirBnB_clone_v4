@@ -35,7 +35,7 @@ const checkStatus = () => {
 };
 
 const searchPlaces = () => {
-  const endpoint = 'http://0.0.0.0:5001/api/v!/places_search/';
+  const endpoint = 'http://0.0.0.0:5001/api/v1/places_search/';
 
   fetch(endpoint, {
     method: 'POST',
