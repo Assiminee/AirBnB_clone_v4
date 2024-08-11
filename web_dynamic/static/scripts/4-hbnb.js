@@ -1,6 +1,7 @@
 /* global $ */
+const selectedAmenities = {};
+
 const checked = () => {
-  const selectedAmenities = {};
   $('.amenities input[type="checkbox"]').change(function () {
     const id = $(this).attr('data-id');
     const name = $(this).attr('data-name');
@@ -34,7 +35,7 @@ const checkStatus = () => {
     });
 };
 
-const searchPlaces = () => {
+const searchPlaces = (jsonData) => {
   const endpoint = 'http://0.0.0.0:5001/api/v1/places_search/';
 
   fetch(endpoint, {
@@ -42,10 +43,12 @@ const searchPlaces = () => {
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({})
+    body: JSON.stringify(jsonData)
   })
     .then(response => response.json())
     .then(data => {
+      $('article').remove();
+      
       data.forEach(obj => {
         const article = $('<article></article>').appendTo('.places');
 
@@ -64,8 +67,17 @@ const searchPlaces = () => {
     .catch(() => {});
 };
 
+const getPlaces = () => {
+  $('button').click(function() {
+    const amenityIds = Object.keys(selectedAmenities);
+
+    searchPlaces({"amenities": amenityIds});
+  });
+}
+
 $(document).ready(function () {
   checked();
   checkStatus();
-  searchPlaces();
+  searchPlaces({});
+  getPlaces();
 });

@@ -24,13 +24,14 @@ const checkStatus = () => {
     .then(response => response.json())
     .then(data => {
       if (data.status === 'OK') {
-        $('#api_status').addClass('available');
+        console.log(data.status);
+        $('div#api_status').addClass('available');
       } else {
-        $('#api_status').removeClass('available');
+        $('div#api_status').removeClass('available');
       }
     })
     .catch(() => {
-      $('#api_status').removeClass('available');
+      $('div#api_status').removeClass('available');
     });
 };
 
